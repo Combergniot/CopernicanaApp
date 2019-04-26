@@ -7,6 +7,7 @@ import javax.validation.constraints.Email;
 import java.io.Serializable;
 import java.util.Date;
 
+//TODO - dane te same co u clienta, po co powielać
 @Entity
 @Table(name = "uslugodawcy")
 public class Provider implements Serializable {
@@ -129,5 +130,15 @@ public class Provider implements Serializable {
 
     public void setUpdatedAt(Date updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    @PrePersist
+    protected void onCreate() {
+        this.createdAt = new Date();
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        this.updatedAt = new Date();
     }
 }

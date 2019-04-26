@@ -25,6 +25,7 @@ public class Guide implements Serializable {
     @Email
     private String email;
 
+    //   TODO - czy te informacje są potrzebne? NIP, Adres, itp.
     private String nip;
 
     private String city;
@@ -139,6 +140,16 @@ public class Guide implements Serializable {
 
     public void setUpdatedAt(Date updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    @PrePersist
+    protected void onCreate() {
+        this.createdAt = new Date();
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        this.updatedAt = new Date();
     }
 
     @Override

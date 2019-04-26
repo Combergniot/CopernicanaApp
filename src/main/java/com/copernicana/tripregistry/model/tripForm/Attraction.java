@@ -16,6 +16,9 @@ public class Attraction implements Serializable {
 
 //    Todo -provider?
     private String name;
+
+//    Podkategorie np. Piernikarnia - U Doroty
+//    Lista wielokrotnego wyboru?
     private String attractionDetails;
 
     @Temporal(TemporalType.DATE)

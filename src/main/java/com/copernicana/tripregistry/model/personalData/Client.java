@@ -20,7 +20,7 @@ public class Client implements Serializable {
     @NotBlank(message = "Client name is required")
     private String name;
 
-//   firma czy osoba prywatna
+//   firma czy osoba prywatna - Może booelean? Czy też do wyrzucenia?
     private String type;
 
     private String contactPerson;
@@ -28,7 +28,6 @@ public class Client implements Serializable {
     @Email
     private String email;
     private String nip;
-
 
     @JsonFormat(pattern = "yyyy-mm-dd")
     private Date createdAt;
@@ -108,5 +107,30 @@ public class Client implements Serializable {
 
     public void setUpdatedAt(Date updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    @PrePersist
+    protected void onCreate() {
+        this.createdAt = new Date();
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        this.updatedAt = new Date();
+    }
+
+    @Override
+    public String toString() {
+        return "Client{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", type='" + type + '\'' +
+                ", contactPerson='" + contactPerson + '\'' +
+                ", phone='" + phone + '\'' +
+                ", email='" + email + '\'' +
+                ", nip='" + nip + '\'' +
+                ", createdAt=" + createdAt +
+                ", updatedAt=" + updatedAt +
+                '}';
     }
 }
