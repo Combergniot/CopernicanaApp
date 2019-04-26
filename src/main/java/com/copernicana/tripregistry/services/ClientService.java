@@ -1,5 +1,6 @@
 package com.copernicana.tripregistry.services;
 
+import com.copernicana.tripregistry.exceptions.IdException;
 import com.copernicana.tripregistry.model.personalData.Client;
 import com.copernicana.tripregistry.repositories.ClientRepository;
 import org.springframework.stereotype.Service;
@@ -27,7 +28,19 @@ public class ClientService {
         return clientRepository.findById(id);
     }
 
-    public Optional<Client> findByName(String name){
+    public Iterable<Client> findByName(String name){
         return clientRepository.findByName(name);
     }
+
+    public void deleteClientById(Long id) {
+        Client client = clientRepository.findById(id)
+                .orElse(null);
+
+        if (client == null) {
+            throw new IdException("Cannot delete client with ID " + id + ". This ID does not exist");
+        }
+        clientRepository.delete(client);
+
+    }
 }
+

@@ -1,5 +1,6 @@
 package com.copernicana.tripregistry.services;
 
+import com.copernicana.tripregistry.exceptions.IdException;
 import com.copernicana.tripregistry.model.personalData.Guide;
 import com.copernicana.tripregistry.repositories.GuideRepository;
 import org.springframework.stereotype.Service;
@@ -23,12 +24,27 @@ public class GuideService {
         return guideRepository.save(guide);
     }
 
-    public Optional<Guide> findById(Long id){
+    public Optional<Guide> findById(Long id) {
         return guideRepository.findById(id);
     }
 
-    public Optional<Guide> findByLastName(String lastName){
+    public Iterable<Guide> findByLastName(String lastName) {
         return guideRepository.findByLastName(lastName);
+    }
+
+    public Iterable<Guide> findByLanguage(String language) {
+        return guideRepository.findByLanguage(language);
+    }
+
+    public void deleteGuideById(Long id) {
+        Guide guide = guideRepository.findById(id)
+                .orElse(null);
+
+        if (guide == null) {
+            throw new IdException("Cannot delete guide with ID " + id + ". This ID does not exist");
+        }
+        guideRepository.delete(guide);
+
     }
 
 }

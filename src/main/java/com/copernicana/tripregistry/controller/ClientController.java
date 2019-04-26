@@ -29,9 +29,9 @@ public class ClientController {
     }
 
     @GetMapping("/name={name}")
-    public Optional<Client> getClientByName(@PathVariable String name) {
-        Optional<Client> clientOptional = clientService.findByName(name);
-        return clientOptional;
+    public Iterable<Client> getClientByName(@PathVariable String name) {
+        Iterable<Client> clients = clientService.findByName(name);
+        return clients;
     }
 
 

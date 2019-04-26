@@ -46,7 +46,7 @@ public class Trip implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "trip")
     private List<Accommodation> accommodations;
 
-    //  zmienilem na oneToOne - zastanowic sie czy bedzie ok
+    //  zmienilem na oneToOne - zastanowic sie czy bedzie ok? Wycieczka wedle jednego programu, czy kilku?
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "trip")
     private GuideProgram guideProgram;
 
@@ -167,5 +167,35 @@ public class Trip implements Serializable {
 
     public void setAttractions(List<Attraction> attractions) {
         this.attractions = attractions;
+    }
+
+    @PrePersist
+    protected void onCreate() {
+        this.createdAt = new Date();
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        this.updatedAt = new Date();
+    }
+
+    @Override
+    public String toString() {
+        return "Trip{" +
+                "id=" + id +
+                ", dateFrom=" + dateFrom +
+                ", dateTo=" + dateTo +
+                ", confirmed=" + confirmed +
+                ", paid=" + paid +
+                ", cancelled=" + cancelled +
+                ", createdAt=" + createdAt +
+                ", updatedAt=" + updatedAt +
+                ", client=" + client +
+                ", group=" + group +
+                ", meals=" + meals +
+                ", accommodations=" + accommodations +
+                ", guideProgram=" + guideProgram +
+                ", attractions=" + attractions +
+                '}';
     }
 }
